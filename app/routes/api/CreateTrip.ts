@@ -95,5 +95,13 @@ export const action = async ({ request }: ActionFunctionArgs) => {
     return data({ id: result.$id });
   } catch (e) {
     console.error("Error generating travel plan: ", e);
+
+    return data(
+      {
+        error: "Trip generation failed",
+        details: e instanceof Error ? e.message : "Unknown error",
+      },
+      { status: 500 }
+    );
   }
 };
